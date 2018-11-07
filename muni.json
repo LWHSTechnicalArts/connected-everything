@@ -1,0 +1,7 @@
+{
+"eventName": "get_muni",
+"url": "http://webservices.nextbus.com/service/publicJSONFeed?command=predictions&a=sf-muni&stopId=14004&routetag=j",
+"requestType": "GET",
+"mydevices": true,
+"responseTemplate": "{{#predictions}}{{#direction}}{{#prediction}}*{{minutes}}~{{/prediction}}{{/direction}}{{/predictions}}"
+}

@@ -1,0 +1,35 @@
+<html>
+
+<head>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div id="chart"></div>
+
+  <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.js"></script>
+  <script>
+    var chart = c3.generate({
+      size: {
+        height: 500,
+        width: 900
+      },
+      data: {
+        columns: [
+          ['fun data', 1030, 1200, 1100, 1400, 1150, 1250],
+          ['more fun data', 2130, 2100, 2140, 2200, 2150, 1850]
+        ],
+        type: 'area',
+      },
+      area: {
+        zerobased: false
+      },
+      color: {
+        pattern: ['#ff9896', '#9467bd', '#c5b0d5', '#8c564b']
+      },
+    });
+  </script>
+</body>
+
+</html>

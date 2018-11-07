@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Basic IOT button</title>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script>
+      var clicks = 0;
+      var accessToken = "YOUR ACCESS TOKEN"; //change this!!!
+      var deviceID = "YOUR DEVICE ID"; //change this!!!
+
+      function ledOn() {
+        console.log("LED is on");
+        clicks = 1;
+        $.post(
+          "https://api.particle.io/v1/devices/" +
+            deviceID +
+            "/led?access_token=" +
+            accessToken,
+          {
+            value: "on"
+          }
+        );
+      }
+
+      function ledOff() {
+        console.log("LED is off");
+        clicks = 0;
+        $.post(
+          "https://api.particle.io/v1/devices/" +
+            deviceID +
+            "/led?access_token=" +
+            accessToken,
+          {
+            value: "off"
+          }
+        );
+      }
+
+      function toggleLed() {
+        if (clicks % 2 == 0) {
+          console.log("LED toggle on");
+          $.post(
+            "https://api.particle.io/v1/devices/" +
+              deviceID +
+              "/led?access_token=" +
+              accessToken,
+            {
+              value: "on"
+            }
+          );
+          clicks++;
+        } else {
+          console.log("LED toggle off");
+          clicks++;
+          $.post(
+            "https://api.particle.io/v1/devices/" +
+              deviceID +
+              "/led?access_token=" +
+              accessToken,
+            {
+              value: "off"
+            }
+          );
+        }
+      }
+    </script>
+    <style>
+      .button {
+        background-color: rgb(50, 115, 255);
+        border: none;
+        color: rgb(177, 250, 240);
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 24px;
+        margin: 8px 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body style="background-color:rgb(0, 0, 0)">
+    <button type="ledOn" class="button" onclick="ledOn()">On</button>
+    <button type="ledOff" class="button" onclick="ledOff()">Off</button>
+    <button type="toggleLed" class="button" onclick="toggleLed()">Toggle</button>
+  </body>
+</html>

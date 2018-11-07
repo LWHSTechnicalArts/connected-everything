@@ -1,0 +1,44 @@
+<html>
+
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.2.2/justgage.js"></script>
+
+  <script>
+    var accessToken = "YOUR ACCESS TOKEN";
+    var deviceID = "YOUR DEVICE ID"
+    var url = "https://api.particle.io/v1/devices/" + deviceID + "/volts";
+
+    function callback(data, status) { //This function checks that communcation is happening
+      if (status == "success") {
+        volts = parseFloat(data.result);
+        volts = volts.toFixed(2); //determines how many decimal places show
+        g.refresh(volts);
+        setTimeout(getReading, 1000); //this calls the getReading function every second
+      } else {
+        alert("There was a problem");
+      }
+    }
+
+    function getReading() {
+      $.get(url, {access_token: accessToken}, callback);
+    }
+  </script>
+</head>
+
+<body>
+  <div id="gauge" class="200x160px"></div>
+
+  <script>
+    var g = new JustGage({   //set up the gauge
+      id: "gauge",
+      value: 0,
+      min: 0,
+      max: 3.3,
+      title: "Volts"
+    });
+    getReading();
+  </script>
+</body>
+</html>
