@@ -2,7 +2,7 @@ Servo serv;
 int pos = 0;
 
 void setup() {
-    serv.attach(D0);
+    serv.attach(D3);
     Particle.function("setpos", setPos);
     Particle.variable("getpos", &pos, INT);
 }

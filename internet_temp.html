@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Temperature Over the Internet</title>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+    <script>
+        var accessToken = "YOUR ACCESS TOKEN";
+        var deviceID = "YOUR DEVICE ID";
+        var url = "https://api.particle.io/v1/devices/" + deviceID + "/tempF";
+
+        function callback(data, status) { //This function checks that communcation is happening
+            if (status == "success") {
+                tempF = parseFloat(data.result);
+                tempF = tempF.toFixed(1); //determines how many decimal places show
+                setTimeout(getReading, 1000); //this calls the getReading function every second
+                document.getElementById("reading").innerHTML = tempF;
+            } else {
+                alert("There was a problem");
+            }
+        }
+
+        function getReading() { //this function does the actual reading
+            $.get(url, {
+                access_token: accessToken
+            }, callback);
+        }
+    </script>
+</head>
+
+<body style="background-image: linear-gradient(yellow, red);height: 1000px;">
+<h1 style="color: rgb(235, 47, 0);font-size: 40px;">Temperature(F)</h1>
+
+<h1 id="reading" style="color: rgb(235, 47, 0);font-size: 100px;"></h1>
+    <script>
+        getReading();
+    </script>
+
+</body>
+
+</html>
