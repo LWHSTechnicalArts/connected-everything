@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Control a Servo</title>
+
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+  <script type="text/javascript">
+    var accessToken = "YOUR ACCESS TOKEN";
+    var deviceID = "YOUR DEVICE ID";
+
+    function showValue(newValue) {
+      console.log("servo turning");
+      document.getElementById("range").innerHTML = newValue;
+      $.post("https://api.particle.io/v1/devices/" + deviceID + "/setpos?access_token=" + accessToken, {
+        value: newValue
+      });
+    }
+  </script>
+
+  <style>
+    body {
+    margin: 1em auto;
+    max-width: 45em;
+    background: lightblue;
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    background-color: silver;
+    width: 400px;
+    height: 20px;
+  }
+</style>
+</head>
+
+<body>
+  <h1>Control Servo Rotation</h1>
+  <div class="slidecontainer">
+    <input type="range" min="0" max="180" value="90" class="slider" id="myRange" onchange="showValue(this.value)">
+    <span id="range">0</span>
+  </div>
+</body>
+
+</html>
