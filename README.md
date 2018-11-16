@@ -1,1 +1,1 @@
-Device Invention wireless web apps!
+Device Invention "Connected Everything" Examples and Demos
