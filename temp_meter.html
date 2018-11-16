@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Temperature Meter</title>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.5/raphael.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.2.5/justgage.js"></script>
+
+    <script>
+        var accessToken = "YOUR ACCESS TOKEN";
+        var deviceID = "YOUR DEVICE ID"
+        var url = "https://api.particle.io/v1/devices/" + deviceID + "/tempF";
+
+        function callback(data, status) { //This function checks that communcation is happening
+            if (status == "success") {
+                tempF = parseFloat(data.result);
+                tempF = tempF.toFixed(1); //determines how many decimal places show
+                g.refresh(tempF);
+                setTimeout(getReading, 1000); //this calls the getReading function every second
+            } else {
+                alert("There was a problem");
+            }
+        }
+
+        function getReading() {
+            $.get(url, {
+                access_token: accessToken
+            }, callback);
+        }
+    </script>
+</head>
+
+<body>
+    <div id="bigfella" style="width:600px; height:420px"></div>
+
+    <script>
+        var g = new JustGage({ //set up the gauge
+            id: "bigfella",
+            value: 0,
+            min: 0,
+            max: "125",
+            title: "Temperature",
+            label: "Fahrenheit"
+        });
+        getReading();
+    </script>
+</body>
+
+</html>
