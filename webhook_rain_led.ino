@@ -32,8 +32,8 @@ void loop() {
     // publish the event that will trigger our Webhook
     Particle.publish("get_weather");
 
-    // and wait at least 60 seconds before doing it again
-    delay(60000);
+    // and wait at least 30 seconds before doing it again
+    delay(30000);
 }
 
 // This function will get called when weather data comes in
