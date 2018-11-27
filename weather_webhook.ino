@@ -12,10 +12,10 @@ void setup() {
     // Lets listen for the hook response
     Particle.subscribe("hook-response/get_weather", gotWeatherData, MY_DEVICES);
 
-    // Lets give ourselves 10 seconds before we actually start the program.
+    // Lets give ourselves 5 seconds before we actually start the program.
     // That will just give us a chance to open the serial monitor before the program sends the request
-    for(int i=0;i<10;i++) {
-        Serial.println("waiting " + String(10-i) + " seconds before we publish");
+    for(int i=0;i<5;i++) {
+        Serial.println("waiting " + String(5-i) + " seconds before we publish");
         delay(1000);
     }
 }
@@ -30,8 +30,8 @@ void loop() {
     // publish the event that will trigger our Webhook
     Particle.publish("get_weather");
 
-    // and wait at least 60 seconds before doing it again
-    delay(60000);
+    // and wait at least 30 seconds before doing it again
+    delay(30000);
 }
 
 // This function will get called when weather data comes in
