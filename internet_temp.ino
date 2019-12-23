@@ -6,8 +6,8 @@ double tempF = 0.0;
 void setup()
 {
     Serial.begin(9600);
-    Particle.variable("tempC", &tempC, DOUBLE);
-    Particle.variable("tempF", &tempF, DOUBLE);
+    Particle.variable("tempC", tempC);
+    Particle.variable("tempF", tempF);
 }
 
 void loop()
@@ -18,5 +18,5 @@ void loop()
     tempF = (tempC * 9.0 / 5.0) + 32.0;
     tempF = round(tempF * 10) / 10.0;                              //rounds the value for IFTTT
     Serial.printlnf("Temp F: %3.1f  Temp C: %3.1f", tempF, tempC); //%3.1 allows for a 3 or more digit value with 1 decimal place
-    delay(4000);
+    delay(10000);
 }
