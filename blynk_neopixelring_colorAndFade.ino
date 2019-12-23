@@ -1,5 +1,4 @@
-// This #include statement was automatically added by the Particle IDE.
-#include <neopixel.h>
+//make sure to include the neopixel and blynk libraries.
 
 /*************************************************************
   Blynk is a platform with iOS and Android apps to control
