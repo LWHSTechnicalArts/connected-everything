@@ -1,7 +1,5 @@
-// This #include statement was automatically added by the Particle IDE.
-#include <Adafruit_SSD1306.h>
+// Don't forget to include the Adafruit_SSD1306 library!!!!
 
-// called once on startup
 #define OLED_RESET D4
 Adafruit_SSD1306 display(OLED_RESET);
 
@@ -30,7 +28,7 @@ void setup() {
     // Lets listen for the hook response
     Particle.subscribe("hook-response/get_weather", gotWeatherData, MY_DEVICES);
 
-    // Lets give ourselves 5 seconds before we actually start the program.
+    // 5 seconds before we actually start the program.
     // That will just give us a chance to open the serial monitor before the program sends the request
     for(int i=0;i<5;i++) {
         Serial.println("waiting " + String(5-i) + " seconds before we publish");
@@ -39,7 +37,6 @@ void setup() {
 }
 
 
-// called forever really fast
 void loop() {
 
     // Let's request the weather, but no more than once every 30 seconds.
@@ -60,7 +57,6 @@ void gotWeatherData(const char *name, const char *data) {
     // Important note!  -- Right now the response comes in 512 byte chunks.
     //  This code assumes we're getting the response in large chunks, and this
     //  assumption breaks down if a line happens to be split across response chunks.
-    //
     // Sample data:
     //  <location>Minneapolis, Minneapolis-St. Paul International Airport, MN</location>
     //  <weather>Overcast</weather>
