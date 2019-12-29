@@ -1,20 +1,4 @@
-/***************************************************
-  This is our library for the Adafruit HX8357D Breakout
-  ----> http://www.adafruit.com/products/2050
-
-  Check out the links above for our tutorials and wiring diagrams
-  These displays use SPI to communicate, 4 or 5 pins are required to
-  interface (RST is optional)
-  Adafruit invests time and resources providing this open source code,
-  please support Adafruit and open-source hardware by purchasing
-  products from Adafruit!
-
-  Written by Limor Fried/Ladyada for Adafruit Industries.
-  MIT license, all text above must be included in any redistribution
- ****************************************************/
-//Modified by akleindolph 3-17-17
-
-//!!!!!! = as of 4-12-17 this would not run on firmware version 0.6.1 or above. Use v0.6.0
+//Don't forget to include Adafruit_HX8357 library!!!
 
  /* WIRING:
  Screen-->Photon
@@ -29,7 +13,7 @@
  RST-->RST
  */
 
-#include "Adafruit_HX8357.h"
+
 // Use software SPI
 Adafruit_HX8357 tft = Adafruit_HX8357(D6, D7, D5, D3, -1, D4); //(TFT_CS, TFT_DC, MOSI, SCK, TFT_RST, MISO);
 
