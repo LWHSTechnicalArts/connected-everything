@@ -1,5 +1,4 @@
-// This #include statement was automatically added by the Particle IDE.
-#include <Adafruit_HX8357.h>
+//Don't forget to include Adafruit_HX8357 library!!!
 
 // Use software SPI
 Adafruit_HX8357 tft = Adafruit_HX8357(D6, D7, D5, D3, -1, D4); //(TFT_CS, TFT_DC, MOSI, SCK, TFT_RST, MISO);
@@ -7,37 +6,13 @@ Adafruit_HX8357 tft = Adafruit_HX8357(D6, D7, D5, D3, -1, D4); //(TFT_CS, TFT_DC
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("HX8357D Test!");
-
   tft.begin(HX8357D);
-
-  // read diagnostics (optional but can help debug problems)
-  uint8_t x = tft.readcommand8(HX8357_RDPOWMODE);
-  Serial.print("Display Power Mode: 0x"); Serial.println(x, HEX);
-  x = tft.readcommand8(HX8357_RDMADCTL);
-  Serial.print("MADCTL Mode: 0x"); Serial.println(x, HEX);
-  x = tft.readcommand8(HX8357_RDCOLMOD);
-  Serial.print("Pixel Format: 0x"); Serial.println(x, HEX);
-  x = tft.readcommand8(HX8357_RDDIM);
-  Serial.print("Image Format: 0x"); Serial.println(x, HEX);
-  x = tft.readcommand8(HX8357_RDDSDR);
-  Serial.print("Self Diagnostic: 0x"); Serial.println(x, HEX);
-
-  Serial.println(F("Benchmark                Time (microseconds)"));
-
   tft.setRotation(1);
 
-  Serial.print(F("Text                     "));
-  Serial.println(testText());
-  while (micros() > 0xFF000000) Spark.process(); // lacy workaround for time overrun
-
-  Serial.println(F("Done!"));
-
-
       // Lets listen for the hook response
-    Particle.subscribe("hook-response/get_muni", gotWeatherData, MY_DEVICES);
+    Particle.subscribe("hook-response/get_muni", gotMuniData, MY_DEVICES);
 
-    // Lets give ourselves 10 seconds before we actually start the program.
+    // 5 seconds before we actually start the program.
     // That will just give us a chance to open the serial monitor before the program sends the request
     for(int i=0;i<5;i++) {
         Serial.println("waiting " + String(5-i) + " seconds before we publish");
@@ -51,49 +26,21 @@ void setup() {
 }
 
 void loop(void) {
-    //testText();
     tft.fillScreen(HX8357_BLACK);
     unsigned long start = micros();
     tft.setCursor(0, 0);
-    // Let's request the weather, but no more than once every 60 seconds.
     Serial.println("Requesting Muni!");
     tft.println("Requesting Muni!");
 
     // publish the event that will trigger our Webhook
     Particle.publish("get_muni");
 
-    // and wait at least 60 seconds before doing it again
-    delay(15000);
+    // and wait at least 30 seconds before doing it again
+    delay(30000);
 }
 
+void gotMuniData(const char *name, const char *data) {
 
-unsigned long testText() {
-  tft.fillScreen(HX8357_BLACK);
-  unsigned long start = micros();
-  tft.setCursor(0, 0);
-  tft.setTextColor(HX8357_WHITE);
-  tft.setTextSize(6);
-  tft.println("Test");
-  tft.setTextSize(2);
-
-  return micros() - start;
-
-}
-
-// This function will get called when weather data comes in
-void gotWeatherData(const char *name, const char *data) {
-    // Important note!  -- Right now the response comes in 512 byte chunks.
-    //  This code assumes we're getting the response in large chunks, and this
-    //  assumption breaks down if a line happens to be split across response chunks.
-    //
-    // Sample data:
-    //  <location>Minneapolis, Minneapolis-St. Paul International Airport, MN</location>
-    //  <weather>Overcast</weather>
-    //  <temperature_string>26.0 F (-3.3 C)</temperature_string>
-    //  <temp_f>26.0</temp_f>
-
-
-    String str = String(data);
     Serial.println(data);
 
     char dataBuffer[256]="";
