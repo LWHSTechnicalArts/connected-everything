@@ -1,5 +1,4 @@
-// This #include statement was automatically added by the Particle IDE.
-#include <Adafruit_HX8357.h>
+//Don't forget to include the Adafruit_HX8357.h library!!
 
  /* WIRING:
  Screen-->Photon
@@ -29,10 +28,8 @@
 Adafruit_HX8357 tft = Adafruit_HX8357(D6, D7, D5, D3, -1, D4); //(TFT_CS, TFT_DC, MOSI, SCK, TFT_RST, MISO);
 
 void setup() {
-
   tft.begin(HX8357D);
   tft.setRotation(1); //choose 1-4
-
 }
 
 
